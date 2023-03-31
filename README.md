@@ -25,7 +25,8 @@ You and your group will use everything you’ve learned over the past six module
 * Use client-side storage to store persistent data.
 
 * Be responsive.
-
+akdflakdfhlkaflkadfh
+asdfk halfaklfhkhdflsdhf
 * Have a polished UI.
 
 * Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
