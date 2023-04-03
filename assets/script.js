@@ -28,8 +28,7 @@ function searchMovies(userInput) {
 //takes the results from the searchMovies functions and appends them as buttons to an ul.
 //added a clearResults function because it was continually adding items and stacking below.
 //Fix 1: List feels too long. And doesn't get shorter as you type names.
-// - Limit database maybe? or srict name search? Last resort could limit the returned results.
-//Fix 2: Isn't appending the items with the right title. Only grabbing the last.
+// - Limit database maybe? or could limit the returned results.
 function updateSearchResults(results) {
   clearResults();
   for (var i = 0; i < results.length; i++) {
@@ -38,21 +37,12 @@ function updateSearchResults(results) {
     resultItem.textContent = result.title;
     resultItem.addEventListener("click", function (event) {
       event.preventDefault();
-      var title = resultItem.textContent;
+      var title = event.target.textContent;
       getMovieData(title);
     });
     searchResults.appendChild(resultItem);
   }
 }
-
-//from before the input dynamic search was created. Worth keeping though i think because it allows users to hit enter on the search bar instead of having to click a button from the list.
-//Fix 1: sends what's in the search bar, maybe update to send the top item in the list instead?
-//Fix 2: possible issue with calling the id here and in the "input" search option? haven't noticed anything yet.
-movieSearchForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  movieSearchInput = document.getElementById("movie-input").value;
-  getMovieData(movieSearchInput);
-});
 
 //clears the search results before updating the list with new search results as user types.
 function clearResults() {
@@ -74,7 +64,6 @@ function getMovieData(input) {
         movieId: data.results[0].id,
         movieName: data.results[0].title,
       };
-      console.log(data);
       getMovieStreamingData(movieData.movieId);
       console.log(movieData.movieName);
     });
