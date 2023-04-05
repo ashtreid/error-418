@@ -1,4 +1,6 @@
 html {
+    display: flex;
+    position:relative;
     /* 100vh replacement for 100% height*/
     height: 100vh;
     /* Background image linked here*/
@@ -24,10 +26,13 @@ main .container {
 }
 
 body header {
+    flex-shrink: 1;
     text-align: center;
+   
 }
 
 body header h1 {
+    word-wrap: break-word;
     /* font-size: 2em; */
     font-size: 6.125em;
     color: white;
@@ -48,17 +53,22 @@ body header h1 {
 
 body {
     flex: content;
+    
 }
+
 
   main .history {
     background-color: aliceblue;
     text-align: center;
     align-items: center;
     width: 100%;
-   /* height: 100%; */
+    margin-top: 100px;
+   height: 100%;
    padding: 10px;
     
 }
+
+
 
 footer {
     text-align: center;
