@@ -38,6 +38,7 @@ function updateSearchResults(results) {
       var title = event.target.textContent;
       getMovieData(title);
       loadFromLocalStorage();
+      clearResults();
     });
     searchResults.appendChild(resultItem);
   }
@@ -78,36 +79,45 @@ function saveMovieData(data) {
 
 function loadFromLocalStorage() {
   var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
-  for (let i = 0; i < movieData.length; i++) {}
-  console.log(movieData);
+  clearMovieCards();
+  for (let i = 0; i < movieData.length; i++) {
+    getMovieStreamingData(movieData[i]);
+  }
+}
+
+function clearMovieCards() {
+  document.querySelectorAll(".movie-card").innerHTML = "";
 }
 
 //need to finish this function to generate a card pulling the data from local storage.
-function createMovieCard() {
+function createMovieCard(movieData, streamingServices) {
   var movieCard = document.createElement("li");
-  movieCard.textContent = movieData.movieName;
+  movieCard.classList.add("movie-card");
+  var movieName = movieData.movieName;
+  // var movieId = movieData.movieId;
+  movieCard.textContent = movieName + " " + streamingServices;
   document.getElementById("movie-history").appendChild(movieCard);
 }
 
 //takes the id and fetches the current streaming services from TMDB's database.
-function getMovieStreamingData(movieId) {
+function getMovieStreamingData(movieData) {
   fetch(
     "https://api.themoviedb.org/3/movie/" +
-      movieId +
+      movieData.movieId +
       "/watch/providers?api_key=59d03319215e9b420664039f4bb2b1b1&language=en-US"
   )
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      var streamingServices = [];
       var dataResults = data.results;
       if (!dataResults.US) {
         console.log("no service to stream");
       } else if (dataResults.US) {
         for (let i = 0; i < data.results.US.flatrate.length; i++) {
-          var streamingService = data.results.US.flatrate[i].provider_name;
-          console.log("Streaming service: " + streamingService);
-          return streamingService;
+          streamingServices = data.results.US.flatrate[i].provider_name;
+          createMovieCard(movieData, streamingServices);
         }
       }
     });
