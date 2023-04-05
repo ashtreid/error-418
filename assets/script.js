@@ -79,7 +79,6 @@ function saveMovieData(data) {
 
 function loadFromLocalStorage() {
   var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
-  clearMovieCards();
   for (let i = 0; i < movieData.length; i++) {
     getMovieStreamingData(movieData[i]);
   }
@@ -91,11 +90,12 @@ function clearMovieCards() {
 
 //need to finish this function to generate a card pulling the data from local storage.
 function createMovieCard(movieData, streamingServices) {
+  clearMovieCards();
   var movieCard = document.createElement("li");
   movieCard.classList.add("movie-card");
   var movieName = movieData.movieName;
   // var movieId = movieData.movieId;
-  movieCard.textContent = movieName + " " + streamingServices;
+  movieCard.textContent = movieName + " Streaming on " + streamingServices;
   document.getElementById("movie-history").appendChild(movieCard);
 }
 
