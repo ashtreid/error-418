@@ -27,8 +27,6 @@ function searchMovies(userInput) {
 
 //takes the results from the searchMovies functions and appends them as buttons to an ul.
 //added a clearResults function because it was continually adding items and stacking below.
-//Fix 1: List feels too long. And doesn't get shorter as you type names.
-// - Limit database maybe? or could limit the returned results.
 function updateSearchResults(results) {
   clearResults();
   for (var i = 0; i < results.length; i++) {
@@ -39,6 +37,7 @@ function updateSearchResults(results) {
       event.preventDefault();
       var title = event.target.textContent;
       getMovieData(title);
+      loadFromLocalStorage();
     });
     searchResults.appendChild(resultItem);
   }
@@ -64,13 +63,33 @@ function getMovieData(input) {
         movieId: data.results[0].id,
         movieName: data.results[0].title,
       };
+      saveMovieData(movieData);
       getMovieStreamingData(movieData.movieId);
       console.log(movieData.movieName);
     });
 }
 
+//saves movie data to local storage
+function saveMovieData(data) {
+  var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
+  movieData.push(data);
+  localStorage.setItem("movieData", JSON.stringify(movieData));
+}
+
+function loadFromLocalStorage() {
+  var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
+  for (let i = 0; i < movieData.length; i++) {}
+  console.log(movieData);
+}
+
+//need to finish this function to generate a card pulling the data from local storage.
+function createMovieCard() {
+  var movieCard = document.createElement("li");
+  movieCard.textContent = movieData.movieName;
+  document.getElementById("movie-history").appendChild(movieCard);
+}
+
 //takes the id and fetches the current streaming services from TMDB's database.
-//Fix 1: need an if/else that displays something else if it's not streaming anywhere. Currently throwing an error in console if it's not.
 function getMovieStreamingData(movieId) {
   fetch(
     "https://api.themoviedb.org/3/movie/" +
@@ -81,8 +100,15 @@ function getMovieStreamingData(movieId) {
       return response.json();
     })
     .then(function (data) {
-      for (let i = 0; i < data.results.US.flatrate.length; i++) {
-        console.log("Streaming on " + data.results.US.flatrate[i].provider_name);
+      var dataResults = data.results;
+      if (!dataResults.US) {
+        console.log("no service to stream");
+      } else if (dataResults.US) {
+        for (let i = 0; i < data.results.US.flatrate.length; i++) {
+          var streamingService = data.results.US.flatrate[i].provider_name;
+          console.log("Streaming service: " + streamingService);
+          return streamingService;
+        }
       }
     });
 }
