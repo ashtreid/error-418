@@ -47,7 +47,10 @@ body header h1 {
 }
 
 body {
-    flex: content;
+    /*important for page layout! changing these properties will probably break the footer again*/
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
   main .history {
@@ -61,7 +64,21 @@ body {
 }
 
 footer {
+    /*'margin top: auto;' is working together with the 'display: flex;','flex-direction: column;' and 'min-height' 
+    properties in body to keep the footer at the bottom of the page*/
+    margin-top: auto;
     text-align: center;
-    bottom: 0;
-    position: absolute;
+    color: #fff;
+    /*Found a cool way of keeping the footer visible on bg image*/
+    mix-blend-mode: difference;
+    /*bottom: 0;
+    position: absolute;*/
+    font-size: 1.5rem;
+}
+
+footer a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    mix-blend-mode: normal;
 }
