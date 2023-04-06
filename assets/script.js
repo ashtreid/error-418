@@ -27,12 +27,32 @@ function searchMovies(userInput) {
 
 //takes the results from the searchMovies functions and appends them as buttons to an ul.
 //added a clearResults function because it was continually adding items and stacking below.
+// function updateSearchResults(results) {
+//   clearResults();
+//   for (var i = 0; i < results.length; i++) {
+//     var result = results[i];
+//     var resultItem = document.createElement("button");
+//     resultItem.textContent = result.title;
+//     resultItem.addEventListener("click", function (event) {
+//       event.preventDefault();
+//       var title = event.target.textContent;
+//       getMovieData(title);
+//       loadFromLocalStorage();
+//       clearResults();
+//     });
+//     searchResults.appendChild(resultItem);
+//   }
+// }
+
 function updateSearchResults(results) {
   clearResults();
   for (var i = 0; i < results.length; i++) {
     var result = results[i];
-    var resultItem = document.createElement("button");
-    resultItem.textContent = result.title;
+    console.log("resulto:", result.release_date);
+    var resultItem = document.createElement("a");
+    resultItem.textContent = `${result.title} | Release date: ${result.release_date}`;
+    resultItem.setAttribute("href", "#");
+
     resultItem.addEventListener("click", function (event) {
       event.preventDefault();
       var title = event.target.textContent;
@@ -43,6 +63,9 @@ function updateSearchResults(results) {
     searchResults.appendChild(resultItem);
   }
 }
+
+
+
 
 //clears the search results before updating the list with new search results as user types.
 function clearResults() {
@@ -105,6 +128,7 @@ function createMovieCard(movieName, streamingServices) {
 
 //takes the id and fetches the current streaming services from TMDB's database.
 function getMovieStreamingData(movieData) {
+  console.log("movie id:", movieData.movieId)
   fetch(
     "https://api.themoviedb.org/3/movie/" +
       movieData.movieId +
