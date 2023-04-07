@@ -42,7 +42,8 @@ function getPosters(userInput, element) {
 function searchMovies(userInput) {
   fetch(
     "https://api.themoviedb.org/3/search/movie?api_key=59d03319215e9b420664039f4bb2b1b1&query=" +
-      userInput
+      userInput +
+      "&include_adult=false"
   )
     .then(function (response) {
       return response.json();
