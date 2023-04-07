@@ -10,6 +10,9 @@ html {
     background-repeat: no-repeat;
     background-position: center;
 
+    /* Fixes background image in place so content scrolls over top */
+    background-attachment: fixed;
+
     min-height: 100vh;
 }
 
