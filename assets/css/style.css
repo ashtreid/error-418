@@ -17,6 +17,7 @@ html {
 }
 
 #search {    
+    
     border-radius: 0;
     font-family: 'Quicksand', sans-serif;
 
@@ -56,8 +57,11 @@ body {
     min-height: 100vh;
 }
 
-main .history {
-    background-color: aliceblue;
+  main .history {
+    display: none;
+    /* background-color: aliceblue; */
+    border: 1px solid hsl(205deg, 14%, 68%);
+
     text-align: center;
     align-items: center;
     width: 100%;
@@ -65,6 +69,12 @@ main .history {
     padding: 10px;
     /* display: none; */
 }
+
+.hidden {
+    display: none;
+}
+
+
 
 footer {
     /*'margin top: auto;' is working together with the 'display: flex;','flex-direction: column;' and 'min-height' 
