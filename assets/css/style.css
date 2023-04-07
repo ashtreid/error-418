@@ -58,7 +58,7 @@ body {
 }
 
   main .history {
-    display: none;
+    /* display: none; */
     /* background-color: aliceblue; */
     border: 1px solid hsl(205deg, 14%, 68%);
 
