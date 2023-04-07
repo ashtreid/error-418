@@ -58,15 +58,16 @@ body {
 }
 
   main .history {
-    display: none;
+    /* display: none; */
     /* background-color: aliceblue; */
     border: 1px solid hsl(205deg, 14%, 68%);
+
     text-align: center;
     align-items: center;
     width: 100%;
-   /* height: 100%; */
-   padding: 10px;
-    
+    /* height: 100%; */
+    padding: 10px;
+    /* display: none; */
 }
 
 .hidden {
