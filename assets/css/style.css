@@ -56,14 +56,14 @@ body {
     min-height: 100vh;
 }
 
-  main .history {
+main .history {
     background-color: aliceblue;
     text-align: center;
     align-items: center;
     width: 100%;
-   /* height: 100%; */
-   padding: 10px;
-    
+    /* height: 100%; */
+    padding: 10px;
+    /* display: none; */
 }
 
 footer {

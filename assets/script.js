@@ -1,8 +1,11 @@
 /** @format */
 
-var movieSearchForm = document.getElementById("movie-search");
-var movieSearchInput = document.getElementById("movie-input");
+// var movieSearchForm = document.getElementById("movie-search");
+var movieSearchInput = document.getElementById("search");
+// var searchResults = document.querySelector(".history");
 var searchResults = document.getElementById("search-results");
+
+
 
 //is taking the user inputs and sending the value to searchMovies
 movieSearchInput.addEventListener("input", function (event) {
@@ -53,10 +56,11 @@ function searchMovies(userInput) {
 //added a clearResults function because it was continually adding items and stacking below.
 function updateSearchResults(results) {
   clearResults();
+
   for (var i = 0; i < results.length; i++) {
     var result = results[i];
     // console.log(result);
-    var resultItem = document.createElement("a");
+    var resultItem = document.createElement("button");
     resultItem.textContent = result.title;
     resultItem.setAttribute("href", "#");
     resultItem.addEventListener("click", function (event) {
@@ -68,6 +72,7 @@ function updateSearchResults(results) {
     searchResults.appendChild(resultItem);
   }
 }
+
 
 //clears the search results before updating the list with new search results as user types.
 function clearResults() {
@@ -137,6 +142,19 @@ function createMovieCard(movieName, streamingServices) {
 
   document.getElementById("movie-history").appendChild(movieCard); // instant
 }
+
+// //need to finish this function to generate a card pulling the data from local storage.
+// function createMovieCard(movieName, streamingServices) {
+//   clearMovieCards();
+//   var movieCard = document.createElement("li");
+//   movieCard.classList.add("movie-card");
+//   if (streamingServices.length === 0) {
+//     movieCard.innerHTML = `${movieName} is not showing on any streaming platforms at this time`
+//   } else {
+//     movieCard.innerHTML = `${movieName} Streaming on ${streamingServices.join(', ')}`;
+//   }
+//   document.getElementById("movie-history").appendChild(movieCard);
+// }
 
 //takes the id and fetches the current streaming services from TMDB's database.
 function getMovieStreamingData(movieData) {
