@@ -3,6 +3,7 @@
 // var movieSearchForm = document.getElementById("movie-search");
 var movieSearchInput = document.getElementById("search");
 var searchResults = document.getElementById("search-results");
+var movieHistory = document.getElementById("movie-history");
 
 //is taking the user inputs and sending the value to searchMovies
 movieSearchInput.addEventListener("input", function (event) {
@@ -11,7 +12,7 @@ movieSearchInput.addEventListener("input", function (event) {
   searchMovies(userInput);
 });
 
-//fetches poster image source from a 2nd API.
+//fetches poster image source from a 2nd API.`
 function getPosters(userInput, element) {
   var options = {
     method: "GET",
@@ -126,18 +127,18 @@ function createMovieCard(movieName, streamingServices) {
   var movieCard = document.createElement("div");
   var movieInfo = document.createElement("h4");
   var moviePoster = document.createElement("img");
+
   movieCard.classList.add("movie-card");
   if (!streamingServices.length) {
     movieInfo.textContent = `${movieName} is not showing on any streaming platforms at this time`;
   } else {
     movieInfo.textContent = `${movieName} Streaming on ${streamingServices.join(", ")}`;
   }
+
   movieCard.appendChild(movieInfo);
   movieCard.appendChild(moviePoster);
-
-  getPosters(movieName, moviePoster); //takes 10 seconds
-
-  document.getElementById("movie-history").appendChild(movieCard); // instant
+  getPosters(movieName, moviePoster);
+  movieHistory.appendChild(movieCard);
 }
 
 //takes the id and fetches the current streaming services from TMDB's database.
@@ -164,5 +165,18 @@ function getMovieStreamingData(movieData) {
       createMovieCard(movieData.movieName, streamingServices);
     });
 }
+
+//this clears local storage and deletes the buttons created in the history.
+function clearLocalStorage(event) {
+  event.preventDefault();
+  localStorage.clear();
+  var movieCards = document.querySelectorAll(".movie-card");
+  for (let i = 0; i < movieCards.length; i++) {
+    movieCards[i].remove();
+  }
+}
+
+//this calls clearLocalStorage.
+document.getElementById("clear-history").addEventListener("click", clearLocalStorage);
 
 loadFromLocalStorage();
