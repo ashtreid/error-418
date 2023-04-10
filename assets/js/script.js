@@ -1,19 +1,18 @@
 /** @format */
 
-// var movieSearchForm = document.getElementById("movie-search");
 var movieSearchInput = document.getElementById("search");
 var searchResults = document.getElementById("search-results");
 var movieHistory = document.getElementById("movie-history");
 var historyContainer = document.getElementById("history-container");
 
-//is taking the user inputs and sending the value to searchMovies
+//Takes the user inputs and sends the value to searchMovies
 movieSearchInput.addEventListener("input", function (event) {
   event.preventDefault();
   var userInput = movieSearchInput.value;
   searchMovies(userInput);
 });
 
-//fetches poster image source from a 2nd API.`
+//Fetches poster image source from a 2nd API.
 function getPosters(userInput, element) {
   var options = {
     method: "GET",
@@ -32,12 +31,11 @@ function getPosters(userInput, element) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data.Search);
       element.setAttribute("src", data.Search[0].Poster);
     });
-}
+};
 
-//fetchs from TMDB's data base using the inputed value by the user.
+//Fetchs from TMDB's data base using the inputed value by the user.
 function searchMovies(userInput) {
   fetch(
     "https://api.themoviedb.org/3/search/movie?api_key=59d03319215e9b420664039f4bb2b1b1&query=" +
@@ -50,16 +48,15 @@ function searchMovies(userInput) {
     .then(function (data) {
       updateSearchResults(data.results);
     });
-}
+};
 
-//takes the results from the searchMovies functions and appends them as buttons to an ul.
-//added a clearResults function because it was continually adding items and stacking below.
+//Takes the results from the searchMovies functions and appends them as buttons to an ul.
+//Added a clearResults function because it was continually adding items and stacking below.
 function updateSearchResults(results) {
   clearResults();
 
   for (var i = 0; i < results.length; i++) {
     var result = results[i];
-    // console.log(result);
     var resultItem = document.createElement("button");
     resultItem.textContent = result.title;
     resultItem.setAttribute("href", "#");
@@ -71,15 +68,15 @@ function updateSearchResults(results) {
     });
     searchResults.appendChild(resultItem);
   }
-}
+};
 
-//clears the search results before updating the list with new search results as user types.
+//Clears the search results before updating the list with new search results as user types.
 function clearResults() {
   searchResults.innerHTML = "";
-}
+};
 
-//takes input from search results and pulls the movie name and movie id from it.
-//calls getMovieStreamingData with the id pulled.
+//Takes input from search results and pulls the movie name and movie id from it.
+//Calls getMovieStreamingData with the id pulled.
 function getMovieData(input) {
   fetch(
     `https://api.themoviedb.org/3/search/movie?api_key=59d03319215e9b420664039f4bb2b1b1&query=${input}`
@@ -93,12 +90,10 @@ function getMovieData(input) {
         movieName: data.results[0].title,
       };
       saveMovieData(movieData);
-
-      // console.log(movieData.movieName);
     });
-}
+};
 
-//saves movie data to local storage
+//Saves movie data to local storage
 function saveMovieData(data) {
   var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
   for (let i = 0; i < movieData.length; i++) {
@@ -109,16 +104,13 @@ function saveMovieData(data) {
   movieData.push(data);
   localStorage.setItem("movieData", JSON.stringify(movieData));
   getMovieStreamingData(data);
-}
+};
 
 function loadFromLocalStorage() {
   var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
   for (let i = 0; i < movieData.length; i++) {
-    console.log(movieData[i])
     getMovieStreamingData(movieData[i]);
-  }}
-
-
+}};
 
 function updateContainerDisplay() {
   if (localStorage.getItem("movieData")) {
@@ -126,20 +118,16 @@ function updateContainerDisplay() {
   } else {
     historyContainer.style.display = "none"; 
   }
-}
+};
 
 updateContainerDisplay();
-
-
-
 
 function clearMovieCards() {
   document.querySelectorAll(".movie-card").innerHTML = "";
   updateContainerDisplay();
+};
 
-}
-
-//need to finish this function to generate a card pulling the data from local storage.
+//Generates a card pulling the data from local storage
 function createMovieCard(movieName, streamingServices) {
   clearMovieCards();
   var movieCard = document.createElement("div");
@@ -157,18 +145,16 @@ function createMovieCard(movieName, streamingServices) {
   movieCard.appendChild(moviePoster);
   getPosters(movieName, moviePoster);
   movieHistory.appendChild(movieCard);
-}
+};
 
-//takes the id and fetches the current streaming services from TMDB's database.
+//Takes the id and fetches the current streaming services from TMDB's database.
 function getMovieStreamingData(movieData) {
-  // console.log("movie id:", movieData.movieId);
   fetch(
     "https://api.themoviedb.org/3/movie/" +
       movieData.movieId +
       "/watch/providers?api_key=59d03319215e9b420664039f4bb2b1b1&language=en-US"
   )
     .then(function (response) {
-      // console.log("response:", response);
       return response.json();
     })
     .then(function (data) {
@@ -182,9 +168,9 @@ function getMovieStreamingData(movieData) {
       }
       createMovieCard(movieData.movieName, streamingServices);
     });
-}
+};
 
-//this clears local storage and deletes the buttons created in the history.
+//Clears local storage and deletes the buttons created in the history.
 function clearLocalStorage(event) {
   event.preventDefault();
   localStorage.clear();
@@ -193,9 +179,9 @@ function clearLocalStorage(event) {
     movieCards[i].remove();
   }
   updateContainerDisplay();
-}
+};
 
-//this calls clearLocalStorage.
+//Calls clearLocalStorage.
 document.getElementById("clear-history").addEventListener("click", clearLocalStorage);
 
 loadFromLocalStorage();
