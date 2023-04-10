@@ -4,6 +4,7 @@
 var movieSearchInput = document.getElementById("search");
 var searchResults = document.getElementById("search-results");
 var movieHistory = document.getElementById("movie-history");
+var historyContainer = document.getElementById("history-container");
 
 //is taking the user inputs and sending the value to searchMovies
 movieSearchInput.addEventListener("input", function (event) {
@@ -113,12 +114,29 @@ function saveMovieData(data) {
 function loadFromLocalStorage() {
   var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
   for (let i = 0; i < movieData.length; i++) {
+    console.log(movieData[i])
     getMovieStreamingData(movieData[i]);
+  }}
+
+
+
+function updateContainerDisplay() {
+  if (localStorage.getItem("movieData")) {
+    historyContainer.style.display = "block"; 
+  } else {
+    historyContainer.style.display = "none"; 
   }
 }
 
+updateContainerDisplay();
+
+
+
+
 function clearMovieCards() {
   document.querySelectorAll(".movie-card").innerHTML = "";
+  updateContainerDisplay();
+
 }
 
 //need to finish this function to generate a card pulling the data from local storage.
@@ -174,6 +192,7 @@ function clearLocalStorage(event) {
   for (let i = 0; i < movieCards.length; i++) {
     movieCards[i].remove();
   }
+  updateContainerDisplay();
 }
 
 //this calls clearLocalStorage.
