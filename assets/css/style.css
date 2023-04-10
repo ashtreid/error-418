@@ -91,6 +91,11 @@ scroll-snap-align: center;
     display: none;
 }
 
+.movie-card {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
 .movie-card h4 {
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
