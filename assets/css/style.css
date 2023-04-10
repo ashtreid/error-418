@@ -59,25 +59,21 @@ body {
 
   main .history {
 
-    /* display: none; */
     /* background-color: aliceblue; */
     border: 1px solid hsl(205deg, 14%, 68%);
 
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     display: flex;
+    /* visibility: hidden; */
+    
     flex-direction: column;
     flex-wrap: wrap-reverse;
-
-
-
-
     text-align: center;
     align-items: center;
     width: 100%;
     max-height: 75vh;
     padding: 10px;
-    /* display: none; */
 }
 .history div {
 justify-content: center;
@@ -86,11 +82,18 @@ scroll-snap-align: center;
  }
 
 
-.hidden {
-    display: none;
+.visibility {
+   visibility: hidden;
 }
 
+.movie-card {
+    padding-left: 100px;
+    padding-right: 100px;
+}
 
+.movie-card h4{
+    color: #fff;
+}
 
 footer {
     /*'margin top: auto;' is working together with the 'display: flex;','flex-direction: column;' and 'min-height' 

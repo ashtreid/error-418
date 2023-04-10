@@ -4,6 +4,7 @@
 var movieSearchInput = document.getElementById("search");
 var searchResults = document.getElementById("search-results");
 var movieHistory = document.getElementById("movie-history");
+// var history = document.getElementById('history')
 
 //is taking the user inputs and sending the value to searchMovies
 movieSearchInput.addEventListener("input", function (event) {
@@ -111,10 +112,11 @@ function saveMovieData(data) {
 }
 
 function loadFromLocalStorage() {
-  var movieData = JSON.parse(localStorage.getItem("movieData")) || [];
+  var movieData = localStorage.getItem("movieData")
   for (let i = 0; i < movieData.length; i++) {
-    getMovieStreamingData(movieData[i]);
-  }
+      getMovieStreamingData(movieData[i]);
+}
+
 }
 
 function clearMovieCards() {
@@ -170,6 +172,7 @@ function getMovieStreamingData(movieData) {
 function clearLocalStorage(event) {
   event.preventDefault();
   localStorage.clear();
+
   var movieCards = document.querySelectorAll(".movie-card");
   for (let i = 0; i < movieCards.length; i++) {
     movieCards[i].remove();
@@ -178,5 +181,5 @@ function clearLocalStorage(event) {
 
 //this calls clearLocalStorage.
 document.getElementById("clear-history").addEventListener("click", clearLocalStorage);
-
+// visibleHistory();
 loadFromLocalStorage();
