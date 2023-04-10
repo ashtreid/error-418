@@ -79,6 +79,7 @@ body {
     padding: 10px;
     /* display: none; */
 }
+
 .history div {
 justify-content: center;
 align-items: center;
@@ -90,7 +91,44 @@ scroll-snap-align: center;
     display: none;
 }
 
+.movie-card h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    color: #ffffff;
+}
 
+#clear-history {
+    font-family: 'Quicksand', sans-serif;
+    background-color: rgb(124 28 32);
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 0px;
+    cursor: pointer;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/*Hide main verticle scrollbar*/
+::-webkit-scrollbar:vertical {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(205, 14%, 68%);
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(205, 14%, 40%);
+    border: 2px solid hsl(205, 14%, 68%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(205, 14%, 35%);
+}
 
 footer {
     /*'margin top: auto;' is working together with the 'display: flex;','flex-direction: column;' and 'min-height' 
